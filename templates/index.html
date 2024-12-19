@@ -13,7 +13,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* Ensure it fits the full viewport */
         }
         .chat-container {
             width: 100%;
@@ -66,7 +66,9 @@
 <body>
     <div class="chat-container">
         <div class="title">Ask d-A-v-I-d About LLU</div>
-        <div id="message-box"></div>
+        <div id="message-box">
+            <div><strong>d-A-v-I-d:</strong> Hi! What can I help you with?</div>
+        </div>
         <input type="text" id="user-input" placeholder="Type your message here..." autofocus />
         <button class="submit-btn" onclick="sendMessage()">Send</button>
     </div>
@@ -75,6 +77,23 @@
     <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
 
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const messageBox = document.getElementById("message-box");
+            const userInput = document.getElementById("user-input");
+
+            // Add listener for the Enter key
+            userInput.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    sendMessage(); // Trigger the sendMessage function
+                }
+            });
+
+            // Focus input field on load
+            if (userInput) {
+                userInput.focus();
+            }
+        });
+
         async function sendMessage() {
             const userInput = document.getElementById("user-input");
             const messageBox = document.getElementById("message-box");
@@ -106,7 +125,7 @@
             // Append assistant reply
             const assistantMessageElement = document.createElement("div");
             assistantMessageElement.style.marginTop = "20px";
-            assistantMessageElement.innerHTML = `d-A-v-I-d: ${parsedReply}`;
+            assistantMessageElement.innerHTML = `<strong>d-A-v-I-d:</strong> ${parsedReply}`;
             messageBox.appendChild(assistantMessageElement);
 
             // Scroll to the bottom
