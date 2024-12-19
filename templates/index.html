@@ -39,13 +39,16 @@
         }
 
         input[type="text"] {
-            width: 100%; /* Ensure it fills the container */
+            width: 100%; /* Ensure it fills 90% of the container's width */
+            font-size: 16px;
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
-            margin-bottom: 10px;
+            margin: 10px auto 10px auto; /* Center the input horizontally */
+            display: block; /* Allow margin auto to work for horizontal centering */
             box-sizing: border-box; /* Prevent overflow caused by padding */
         }
+
         .submit-btn {
             font-size: 16px; /* Slightly smaller for mobile */
             padding: 10px 15px;
