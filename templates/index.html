@@ -57,6 +57,9 @@
         <button onclick="sendMessage()">Send</button>
     </div>
 
+    <!-- Include marked.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+
     <script>
         async function sendMessage() {
             const userInput = document.getElementById("user-input");
@@ -67,8 +70,12 @@
 
             // Append user message
             const userMessageElement = document.createElement("div");
+            userMessageElement.style.marginBottom = "20px";
             userMessageElement.textContent = `You: ${userMessage}`;
             messageBox.appendChild(userMessageElement);
+
+            // Clear input
+            userInput.value = "";
 
             // Send message to the server
             const response = await fetch("/chat", {
@@ -79,12 +86,17 @@
 
             const data = await response.json();
 
+            // Parse and render Markdown
+            console.log(typeof marked); // Debug to check if marked.js is loaded
+            const parsedReply = marked.parse(data.reply || data.error);
+
             // Append assistant reply
             const assistantMessageElement = document.createElement("div");
-            assistantMessageElement.textContent = `d-A-v-I-d: ${data.reply || data.error}`;
+            assistantMessageElement.style.marginTop = "20px";
+            assistantMessageElement.innerHTML = `d-A-v-I-d: ${parsedReply}`;
             messageBox.appendChild(assistantMessageElement);
 
-            userInput.value = "";
+            // Scroll to the bottom
             messageBox.scrollTop = messageBox.scrollHeight;
         }
     </script>
