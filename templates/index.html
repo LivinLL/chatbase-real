@@ -14,6 +14,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh; /* Ensure it fits the full viewport */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
         .chat-container {
             width: 100%;
@@ -21,13 +22,14 @@
             background: white;
             padding: 20px;
             border-radius: 8px;
+            border: 0px solid #00ff00;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         #message-box {
-            width: 100%;
+            max-width: calc(100% - 20px); /* Subtract the desired padding from both sides */
             height: 300px;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
+            border: 1px solid #333;
+            margin: 0 auto; /* Center the box horizontally */
             overflow-y: auto;
             padding: 10px;
             font-size: 16px;
@@ -35,15 +37,17 @@
             display: flex;
             flex-direction: column-reverse; /* Reverse the direction */
         }
+
         input[type="text"] {
-            width: calc(100% - 20px);
+            width: 100%; /* Ensure it fills the container */
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
             margin-bottom: 10px;
+            box-sizing: border-box; /* Prevent overflow caused by padding */
         }
         .submit-btn {
-            font-size: 18px;
+            font-size: 16px; /* Slightly smaller for mobile */
             padding: 10px 15px;
             background-color: #85A842; /* LLU green */
             color: white;
@@ -52,6 +56,8 @@
             cursor: pointer;
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%; /* Ensure it fills the container */
+            box-sizing: border-box; /* Prevent overflow caused by padding */
         }
         .submit-btn:hover {
             background-color: #162739; /* LLU dark navy */
@@ -59,9 +65,30 @@
         }
         .title {
             text-align: center;
-            font-size: 24px;
+            font-size: 22px; /* Slightly smaller for mobile */
             color: #162739; /* LLU dark navy */
             margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .chat-container {
+                padding: 15px;
+            }
+            .title {
+                font-size: 18px; /* Smaller title for small screens */
+            }
+            input[type="text"] {
+                font-size: 14px; /* Adjust input font size */
+            }
+            .submit-btn {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+            #message-box {
+                max-height: 50vh; /* Allow more space for chat */
+                font-size: 14px; /* Smaller font for small screens */
+            }
         }
     </style>
 </head>
@@ -139,4 +166,3 @@
     </script>
 </body>
 </html>
-
